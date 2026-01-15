@@ -24,17 +24,13 @@ function normalizeRequestPath(path) {
     if (!path || path.trim() === "") {
         return DEFAULT_API_PATH + API_ENDPOINT;
     }
-
     let normalized = path.trim();
-
     // 添加协议前缀
     if (!/^https?:\/\//i.test(normalized)) {
         normalized = `https://${normalized}`;
     }
-
     // 移除末尾斜杠
     normalized = normalized.replace(/\/+$/, "");
-
     // 智能补全端点路径
     if (normalized.endsWith("/chat/completions")) {
         // 已经是完整路径，无需处理
@@ -45,7 +41,6 @@ function normalizeRequestPath(path) {
         // 其他情况，补全完整端点
         normalized += API_ENDPOINT;
     }
-
     return normalized;
 }
 
@@ -106,11 +101,9 @@ function validateParams(apiKey, base64) {
  */
 function parseResponse(response) {
     const content = response?.choices?.[0]?.message?.content;
-
     if (content === undefined || content === null) {
         throw `Invalid API response format: ${JSON.stringify(response)}`;
     }
-
     return content;
 }
 
@@ -140,36 +133,29 @@ function formatError(res) {
 async function recognize(base64, lang, options) {
     const {config, utils} = options;
     const {tauriFetch: fetch} = utils;
-
     // 解构配置参数
     const {
         model = DEFAULT_MODEL, apiKey, requestPath, customPrompt
     } = config;
-
     // 参数验证
     validateParams(apiKey, base64);
-
     // 验证模型
     if (typeof model === "string" && model.trim() === "") {
         throw "Model is required. Please specify a model name.";
     }
-
     // 构建请求参数
     const url = normalizeRequestPath(requestPath);
     const prompt = buildPrompt(customPrompt, lang);
     const body = buildRequestBody(model, base64, prompt);
-
     const headers = {
         "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}`
     };
-
     // 发送请求
     const res = await fetch(url, {
         method: "POST", url: url, headers: headers, body: {
             type: "Json", payload: body
         }
     });
-
     // 处理响应
     if (res.ok) {
         return parseResponse(res.data);
