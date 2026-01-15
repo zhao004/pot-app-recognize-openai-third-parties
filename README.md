@@ -27,13 +27,14 @@
 
 ### 请求地址说明
 
-插件会自动处理请求地址，以下格式均可正常工作：
+插件会智能处理请求地址，以下格式均可正常工作：
 
 ```
-api.openai.com
-https://api.openai.com
-https://api.openai.com/v1/chat/completions
-your-proxy.com/v1
+api.openai.com                              -> https://api.openai.com/v1/chat/completions
+https://api.openai.com                      -> https://api.openai.com/v1/chat/completions
+https://api.openai.com/v1/chat/completions  -> https://api.openai.com/v1/chat/completions
+https://api.siliconflow.cn/v1               -> https://api.siliconflow.cn/v1/chat/completions
+your-proxy.com/v1                           -> https://your-proxy.com/v1/chat/completions
 ```
 
 ### 自定义 Prompt
@@ -50,6 +51,7 @@ your-proxy.com/v1
 本插件支持任何兼容 OpenAI API 格式的服务，包括但不限于：
 
 - [OpenAI](https://openai.com/)
+- [SiliconFlow](https://siliconflow.cn/)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [Cloudflare AI Gateway](https://developers.cloudflare.com/ai-gateway/)
 - [OpenRouter](https://openrouter.ai/)

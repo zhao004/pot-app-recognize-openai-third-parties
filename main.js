@@ -16,7 +16,7 @@ const DEFAULT_PROMPT = "Just recognize the text in the image. Do not offer unnec
  * 规范化请求路径
  * - 自动添加 https:// 前缀
  * - 移除末尾斜杠
- * - 自动补全 /v1/chat/completions 端点
+ * - 智能补全端点路径
  * @param {string} path - 用户输入的请求路径
  * @returns {string} 规范化后的完整 API 路径
  */
@@ -35,8 +35,14 @@ function normalizeRequestPath(path) {
     // 移除末尾斜杠
     normalized = normalized.replace(/\/+$/, "");
 
-    // 补全 API 端点
-    if (!normalized.endsWith("/chat/completions")) {
+    // 智能补全端点路径
+    if (normalized.endsWith("/chat/completions")) {
+        // 已经是完整路径，无需处理
+    } else if (normalized.endsWith("/v1")) {
+        // 以 /v1 结尾，只需补全 /chat/completions
+        normalized += "/chat/completions";
+    } else {
+        // 其他情况，补全完整端点
         normalized += API_ENDPOINT;
     }
 

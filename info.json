@@ -7,12 +7,12 @@
   "needs": [
     {
       "key": "model",
-      "display": "模型",
+      "display": "Model",
       "type": "input"
     },
     {
       "key": "requestPath",
-      "display": "请求地址(完整接口)",
+      "display": "API Url",
       "type": "input"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "key": "customPrompt",
-      "display": "自定义 Prompt",
+      "display": "Custom Prompt",
       "type": "input"
     }
   ],
