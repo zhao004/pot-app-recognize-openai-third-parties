@@ -24,6 +24,15 @@
       "key": "customPrompt",
       "display": "Custom Prompt",
       "type": "input"
+    },
+    {
+      "key": "imageCompression",
+      "display": "Image Compression",
+      "type": "select",
+      "options": {
+        "off": "Off",
+        "auto": "Auto"
+      }
     }
   ],
   "language": {
